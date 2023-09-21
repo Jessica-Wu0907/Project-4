@@ -10,7 +10,8 @@ EasyCart is a robust and user-friendly Add to Cart application designed to simpl
 
 Groups member & who is doing what: 
 
-Li Xia, Wei Gao, Yuexia Wu, Xuan Huang, Li Xia and Yuexia Wu: Front-end Development & Design, Wei Gao and Xuan Huang: Back-end Development & Server Management.   
+Li Xia, Wei Gao, Yuexia Wu, Xuan Huang
+Li Xia and Yuexia Wu: Front-end Development & Design, Wei Gao and Xuan Huang: Back-end Development & Server Management.   
 
 how you wish to be graded: 
 
