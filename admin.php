@@ -1,3 +1,14 @@
+
+<?php
+
+@include 'database.php';
+
+session_start();
+if (!isset($_SESSION["user"])) {
+   header("Location: login.php");
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,18 +22,27 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <!-- custom css file link  -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style1.css">
 </head>
 
 <body>
+<?php
 
-    <!-- ... 其他内容 ... -->
+if(isset($message)){
+   foreach($message as $message){
+      echo '<div class="message"><span>'.$message.'</span> <i class="fas fa-times" onclick="this.parentElement.style.display = `none`;"></i> </div>';
+   };
+};
+
+?>
+
+<?php include 'header.php'; ?>
+
 
 <!-- 添加产品表单 -->
  <div class="container">
     <section>
-        <!-- <form action="" method="post" class="add-product-form" enctype="multipart/form-data" id="add-product-form"> -->
-            <form action="addEditDelete/add_product.php" method="post" class="add-product-form" enctype="multipart/form-data"
+            <form action="insert.php" method="post" class="add-product-form" enctype="multipart/form-data"
                 id="add-product-form">
             <h3>add a new product</h3>
             <input type="text" name="p_name" placeholder="enter the product name" class="box" required>
@@ -31,7 +51,6 @@
             <input type="submit" value="add the product" name="add_product" class="btn">
         </form>
     </section>
-
     <!-- 产品列表 -->
     <section class="display-product-table">
         <table>
@@ -48,13 +67,21 @@
         </table>
     </section>
 
-        <section class="edit-form-container">
-            <!-- 编辑表单 -->
-        
-        </section>
+    <!-- 编辑表单 -->
+      <section class="edit-form-container" id="edit-form-container">
+            <form action="update.php" method="post" enctype="multipart/form-data" id="edit-product-form">
+                <input type="hidden" name="update_p_id" value="">
+                <input type="text" class="box" required name="update_p_name" placeholder="enter the product name">
+                <input type="number" min="0" class="box" required name="update_p_price" placeholder="enter the product price">
+                <input type="file" class="box" required name="update_p_image" accept="image/png, image/jpg, image/jpeg">
+                <input type="submit" value="Update the product" name="update_product" class="btn">
+                <input type="reset" value="Cancel" id="close-edit" class="option-btn">
+            </form>
+    </section>
     </div>
+    <a href="logout.php" class="btn btn-warning">Logout</a>
 
-    <script src="js/admin.js"></script>
+    <script src="js/admin1.js"></script>
     <script src="js/script.js"></script>
 </body>
 

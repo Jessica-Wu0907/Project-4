@@ -230,7 +230,7 @@ section{
    padding:1.5rem;
 }
 
-#edit-form-container{
+.edit-form-container{
    position: fixed;
    top:0; left:0;
    z-index: 1100;
@@ -243,7 +243,7 @@ section{
    width: 100%;
 }
 
-#edit-form-container form{
+.edit-form-container form{
    width: 50rem;
    border-radius: .5rem;
    background-color: var(--white);
@@ -251,7 +251,7 @@ section{
    padding:2rem;
 }
 
-#edit-form-container form .box{
+.edit-form-container form .box{
    width: 100%;
    background-color: var(--bg-color);
    border-radius: .5rem;

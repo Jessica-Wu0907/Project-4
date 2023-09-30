@@ -28,10 +28,10 @@ if(isset($_GET['delete'])){
    $delete_id = $_GET['delete'];
    $delete_query = mysqli_query($conn, "DELETE FROM `products` WHERE id = $delete_id ") or die('query failed');
    if($delete_query){
-      header('location:index.php');
+      header('location:admin.html');
       $message[] = 'product has been deleted';
    }else{
-      header('location:index.php');
+      header('location:admin.html');
       $message[] = 'product could not be deleted';
    };
 };
@@ -49,10 +49,10 @@ if(isset($_POST['update_product'])){
    if($update_query){
       move_uploaded_file($update_p_image_tmp_name, $update_p_image_folder);
       $message[] = 'product updated succesfully';
-      header('location:index.php');
+      header('location:admin.html');
    }else{
       $message[] = 'product could not be updated';
-      header('location:index.php');
+      header('location:admin.html');
    }
 
 }

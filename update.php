@@ -1,9 +1,7 @@
 <?php
-@include 'config.php'; // Include your database connection
+@include 'database.php';
 
-$response = array();
-
-if (isset($_POST['update_product'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $update_p_id = $_POST['update_p_id'];
     $update_p_name = $_POST['update_p_name'];
     $update_p_price = $_POST['update_p_price'];
@@ -15,18 +13,14 @@ if (isset($_POST['update_product'])) {
 
     if ($update_query) {
         move_uploaded_file($update_p_image_tmp_name, $update_p_image_folder);
-        $response['success'] = true;
-        $response['message'] = 'Product updated successfully';
+        echo json_encode(["message" => "Product updated successfully"]);
     } else {
-        $response['success'] = false;
-        $response['message'] = 'Product could not be updated';
+        http_response_code(500); // 500 表示服务器内部错误
+        echo json_encode(["error" => "Could not update the product"]);
     }
 } else {
-    $response['success'] = false;
-    $response['message'] = 'No update request received';
+    http_response_code(405); // 405 表示不允许的请求方法
+    echo json_encode(["error" => "Method not allowed"]);
 }
-
-// 输出 JSON 响应
-header('Content-Type: application/json');
-echo json_encode($response);
 ?>
+
