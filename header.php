@@ -7,7 +7,7 @@
       <nav class="navbar">
          <!-- <a href="admin1.php">add products</a> -->
          <a href="admin.php">add products</a>
-         <a href="products.php">view products</a>
+         <a href="products11.php">view products</a>
       </nav>
 
       <?php
