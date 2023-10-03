@@ -44,26 +44,26 @@ document.addEventListener("DOMContentLoaded", function () {
     if (e.target.classList.contains("add-to-cart")) {
         const productId = e.target.getAttribute("data-product-id");
         console.log(productId, "addbutton"); // Log the productId
-console.log(JSON.stringify({product_id: productId}),"aaaa");
+
+        console.log(JSON.stringify({ product_id: productId }), "aaaa");
+        
         // Send a POST request to add the product to the cart
         fetch("cart_handler.php", {
-            method: "POST",
+            method: "POST", // HTTP method (POST in this case)
             headers: {
-                "Content-Type": "application/json",
+                "Content-Type": "application/json", // Specify the content type as JSON
             },
-            body: JSON.stringify({ product_id: productId }),
+            body: JSON.stringify({ product_id: productId }), // Convert the data to JSON format and send it in the request body
         })
-        .then(response => response.text())
+        .then(response =>  {
+            console.log(response); // Log the full response object
+            return response.text();
+        })
         .then(data => {
-            console.log(data,"bbb"); // Log the response data
-
+            console.log(data); // Log the raw response data
             try {
                 const jsonData = JSON.parse(data);
-                if (jsonData.message) {
-                    alert(jsonData.message);
-                } else {
-                    alert("Failed to add the product to the cart.");
-                }
+                // Rest of your parsing and handling logic
             } catch (error) {
                 console.error('JSON Parse Error:', error);
                 alert('Failed to parse response data.');
@@ -73,7 +73,7 @@ console.log(JSON.stringify({product_id: productId}),"aaaa");
             console.error('Error:', error);
             alert('Failed to add the product. Please try again later.');
         });
-    }
-});
-       
-});
+            }
+        });
+            
+        });

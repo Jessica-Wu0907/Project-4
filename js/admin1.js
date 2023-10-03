@@ -91,19 +91,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     // 先解绑已有的点击事件处理函数
-// productList.removeEventListener("click", handleProductClick);
-
-// // 再绑定点击事件处理函数
-// productList.addEventListener("click", handleProductClick);
-//     // 监听 "Edit" 链接的点击事件
-    //     function handleProductClick(e) {
-    productList.addEventListener("click", function(e){
-        console.log(productList,"aaaa")
-        console.log(e,"edit")
-
+    productList.addEventListener("click", function (e) {
+        console.log(e,"e")
         // contains() 用于检查元素的类列表中是否包含指定的类名
         // includes() 方法是 JavaScript 数组的方法，用于检查数组是否包含指定的元素
+
+
         if (e.target.classList.contains("edit-btn")) {
+            console.log("edit")
             // console.log(e.target.classList.contains("edit-btn"), "boolean");//true
             // e.preventDefault(); // 阻止默认链接行为
 
@@ -122,7 +117,33 @@ document.addEventListener("DOMContentLoaded", function () {
             // editForm.style.display = "block";
             editformcontainer.style.display="block"
             return false;
+        } else if (e.target.classList.contains("delete-btn")) {
+            console.log(e.target.classList.contains("delete-btn"),"cc")//true
+    console.log("delete");//get
+            const productId = e.target.getAttribute("href").split("=")[1];
+            console.log(productId,"productId")
+
+        if (confirm('Are you sure you want to delete this product?')) {
+            e.stopPropagation(); // 阻止事件冒泡
+            fetch(`delete.php?delete=${productId}`, {
+                method: "GET",
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    const productRow = e.target.closest("tr");
+                    productRow.remove();
+                    alert(data.message);
+                } else {
+                    alert(data.error);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Failed to delete the product. Please try again later.');
+            });
         }
+    }
     });
 
     // 监听编辑表单的提交事件
