@@ -118,13 +118,13 @@ document.addEventListener("DOMContentLoaded", function () {
             editformcontainer.style.display="block"
             return false;
         } else if (e.target.classList.contains("delete-btn")) {
-            console.log(e.target.classList.contains("delete-btn"),"cc")//true
-    console.log("delete");//get
+            // console.log(e.target.classList.contains("delete-btn"),"cc")//true
+    // console.log("delete");//get
             const productId = e.target.getAttribute("href").split("=")[1];
-            console.log(productId,"productId")
+            // console.log(productId,"productId")
 
-        if (confirm('Are you sure you want to delete this product?')) {
-            e.stopPropagation(); // 阻止事件冒泡
+        // if (confirm('Are you sure you want to delete this product?')) {
+            // e.stopPropagation(); // 阻止事件冒泡
             fetch(`delete.php?delete=${productId}`, {
                 method: "GET",
             })
@@ -140,9 +140,9 @@ document.addEventListener("DOMContentLoaded", function () {
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('Failed to delete the product. Please try again later.');
+                // alert('Failed to delete the product. Please try again later.');
             });
-        }
+        // }
     }
     });
 
