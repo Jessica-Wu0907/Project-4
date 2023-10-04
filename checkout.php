@@ -1,6 +1,12 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 @include 'database.php';
+// 检查数据库连接
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
 
 if(isset($_POST['order_btn'])){
 
@@ -26,7 +32,8 @@ if(isset($_POST['order_btn'])){
    };
 
    $total_product = implode(', ',$product_name);
-   $detail_query = mysqli_query($conn, "INSERT INTO `order`(name, number, email, method, flat, street, city, state, country, pin_code, total_products, total_price) VALUES('$name','$number','$email','$method','$flat','$street','$city','$state','$country','$pin_code','$total_product','$price_total')") or die('query failed');
+   $detail_query = mysqli_query($conn, "INSERT INTO `orders`(name, number, email, method, flat, street, city, state, country, pin_code, total_products, total_price) VALUES('$name','$number','$email','$method','$flat','$street','$city','$state','$country','$pin_code','$total_product','$price_total')") or die('query failed');
+      // $detail_query = mysqli_query($conn, "INSERT INTO `orders1` (name, number, email, method, flat, street, city, state, country, pin_code, total_products, total_price) VALUES ('$name', '$number', '$email', '$method', '$flat', '$street', '$city', '$state', '$country', '$pin_code', '$total_product', '$price_total')") or die('query failed');
 
    if($cart_query && $detail_query){
       echo "
@@ -45,7 +52,7 @@ if(isset($_POST['order_btn'])){
             <p> your payment mode : <span>".$method."</span> </p>
             <p>(*pay when product arrives*)</p>
          </div>
-            <a href='products.php' class='btn'>continue shopping</a>
+            <a href='products11.php' class='btn'>continue shopping</a>
          </div>
       </div>
       ";
@@ -85,19 +92,21 @@ if(isset($_POST['order_btn'])){
    <div class="display-order">
       <?php
          $select_cart = mysqli_query($conn, "SELECT * FROM `cart`");
-         $total = 0;
+         $select_cart = mysqli_query($conn, "SELECT * FROM `cart`");
          $grand_total = 0;
-         if(mysqli_num_rows($select_cart) > 0){
-            while($fetch_cart = mysqli_fetch_assoc($select_cart)){
-            $total_price = number_format($fetch_cart['price'] * $fetch_cart['quantity']);
-            $grand_total = $total += $total_price;
-      ?>
-      <span><?= $fetch_cart['name']; ?>(<?= $fetch_cart['quantity']; ?>)</span>
-      <?php
+
+         if (mysqli_num_rows($select_cart) > 0) {
+            while ($fetch_cart = mysqli_fetch_assoc($select_cart)) {
+               $total_price = number_format($fetch_cart['price'] * $fetch_cart['quantity']);
+               $grand_total += $total_price;
+         ?>
+            <span><?= $fetch_cart['name']; ?>(<?= $fetch_cart['quantity']; ?>)</span>
+         <?php
+            }
+         } else {
+            echo "<div class='display-order'><span>Your cart is empty!</span></div>";
          }
-      }else{
-         echo "<div class='display-order'><span>your cart is empty!</span></div>";
-      }
+
       ?>
       <span class="grand-total"> grand total : $<?= $grand_total; ?>/- </span>
    </div>
